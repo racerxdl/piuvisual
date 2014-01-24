@@ -3,6 +3,7 @@ Pump It Up Visualizer
 
 HTML5 Canvas and WebGL Pump It Up Visualizer!
 This is a preliminary release. I will make changes on this to get more organized.
+Want to see a live version? Here: http://www.energylabs.com.br/piuvisual/
 
        ____ ___ _   ___     _____ ____  _   _   _    _     
       |  _ \_ _| | | \ \   / /_ _/ ___|| | | | / \  | |    
