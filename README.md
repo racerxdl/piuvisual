@@ -1,8 +1,8 @@
-piuvisual
+Pump It Up Visualizer
 =========
 
 HTML5 Canvas and WebGL Pump It Up Visualizer!
-
+This is a preliminary release. I will make changes on this to get more organized.
 
        ____ ___ _   ___     _____ ____  _   _   _    _     
       |  _ \_ _| | | \ \   / /_ _/ ___|| | | | / \  | |    
