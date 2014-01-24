@@ -110,6 +110,7 @@
 	</script>
 </head>
 <body onLoad="Init();">
+<a href="https://github.com/racerxdl/piuvisual"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
 <center>
 <BR><BR>
 <canvas width=640 height=480 id="gamescreen"></canvas><BR><input type="button" onClick="PUMPER.Globals.PumpGame.Play();" value="Play"><input type="button" onClick="PUMPER.Globals.PumpGame.Pause();" value="Pause">
