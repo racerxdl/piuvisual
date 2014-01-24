@@ -1,0 +1,87 @@
+ID,Name0,Name1,Name2,Name3,Name4,Artist0,Artist1,Artist2,Artist3,Artist4,BPM0,BPM1,BPM2,BPM3,BPM4,ParentSongIndex,GameVersion,Channel,ActiveMode,SomeBoolean,Length,Padding1,Padding2
+FFFFFFFF,NO_STRING,NO_STRING,NO_STRING,NO_STRING,NO_STRING,NO_STRING,NO_STRING,NO_STRING,NO_STRING,NO_STRING,NO_STRING,NO_STRING,NO_STRING,NO_STRING,NO_STRING,4294967295,0,0,0,0,0,4294967295,4294967295
+1145,Trotpris,트롯프리스,Trotpris,Trotpris,Trotpris,Doin,도인,Doin,Doin,Doin,156118,156118,156118,156118,156118,4294967295,19,1,1,1,57,4294967295,4294967295
+1146,Cleaner,클리너,Cleaner,Cleaner,Cleaner,Doin,도인,Doin,Doin,Doin,203,203,203,203,203,4294967295,19,1,1,1,57,4294967295,4294967295
+1147,Take Out,테이크 아웃,Take Out,Take Out,Take Out,SHK,SHK,SHK,SHK,SHK,170,170,170,170,170,4294967295,19,1,1,1,50,4294967295,4294967295
+1148,Overblow,오버블로우,Overblow,Overblow,Overblow,MAX,맥스,MAX,MAX,MAX,155,155,155,155,155,4294967295,19,1,1,1,47,4294967295,4294967295
+1149,X-Rave,엑스 레이브,X-Rave,X-Rave,X-Rave,DM Ashura,DM Ashura,DM Ashura,DM Ashura,DM Ashura,147,147,147,147,147,4294967295,19,3,1,1,56,4294967295,4294967295
+1150,Hot Issue,핫 이슈,Hot Issue,Hot Issue,Hot Issue,4Minute,포미닛,4Minute,4Minute,4Minute,128,128,128,128,128,4294967295,19,2,2,1,99,4294967295,4294967295
+1151,Night Duty,야근,Night Duty,Night Duty,Night Duty,A.V.,A.V.,A.V.,A.V.,A.V.,140,140,140,140,140,4294967295,19,1,2,1,111,4294967295,4294967295
+1152,Pavane,파반느,Pavane,Pavane,Pavane,V.A.,V.A.,V.A.,V.A.,V.A.,160,160,160,160,160,4294967295,19,1,2,1,104,4294967295,4294967295
+1153,Pine Nut,잣,Pine Nut,Pine Nut,Pine Nut,Doin,도인,Doin,Doin,Doin,200,200,200,200,200,4294967295,19,1,2,1,100,4294967295,4294967295
+1154,ASDF,ㅁㄴㅇㄹ,ASDF,ASDF,ASDF,Doin,도인,Doin,Doin,Doin,170,170,170,170,170,4294967295,19,1,2,1,108,4294967295,4294967295
+1155,Last Farewell,마지막 인사,Last Farewell,Last Farewell,Last Farewell,BigBang,빅뱅,BigBang,BigBang,BigBang,135,135,135,135,135,4294967295,19,2,2,1,109,4294967295,4294967295
+1156,Says,말씀,Says,Says,Says,Doin,도인,Doin,Doin,Doin,154.97,154.97,154.97,154.97,154.97,4294967295,19,1,2,1,117,4294967295,4294967295
+1157,Energy,에너지,Energy,Energy,Energy,Mighty Mouth,마이티 마우스,Mighty Mouth,Mighty Mouth,Mighty Mouth,155,155,155,155,155,4294967295,19,2,2,1,110,4294967295,4294967295
+1159,Rave Until The Night Is Over,레이브 언틸 더 나이트 이즈 오버,Rave Until The Night Is Over,Rave Until The Night Is Over,Rave Until The Night Is Over,DM Ashura feat. MC Jay & Veronica,DM Ashura feat. MC Jay & Veronica,DM Ashura feat. MC Jay & Veronica,DM Ashura feat. MC Jay & Veronica,DM Ashura feat. MC Jay & Veronica,144,144,144,144,144,4294967295,19,3,2,1,109,4294967295,4294967295
+1160,Jonathan's Dream,조나단의 꿈,Jonathan's Dream,Jonathan's Dream,Jonathan's Dream,MAX&Seorryang (SID-SOUND),MAX&Seorryang (SID-SOUND),MAX&Seorryang (SID-SOUND),MAX&Seorryang (SID-SOUND),MAX&Seorryang (SID-SOUND),140,140,140,140,140,4294967295,19,1,2,1,117,4294967295,4294967295
+1201,Monolith,모노리스,Monolith,Monolith,Monolith,Affinity,Affinity,Affinity,Affinity,Affinity,196,196,196,196,196,4294967295,20,3,2,1,110,4294967295,4294967295
+1202,Y2Z,Y2Z,Y2Z,Y2Z,Y2Z,Affinity,Affinity,Affinity,Affinity,Affinity,162,162,162,162,162,4294967295,20,3,2,1,109,4294967295,4294967295
+1206,Rockhill,락힐,Rockhill,Rockhill,Rockhill,Beltaine,Beltaine,Beltaine,Beltaine,Beltaine,140,140,140,140,140,4294967295,20,3,2,1,109,4294967295,4294967295
+1208,Switchback ,스위치백,Switchback ,Switchback ,Switchback ,Celldweller,Celldweller,Celldweller,Celldweller,Celldweller,112,112,112,112,112,4294967295,20,3,2,1,114,4294967295,4294967295
+1209,Ladybug,레이디버그,Ladybug,Ladybug,Ladybug,Coconut,Coconut,Coconut,Coconut,Coconut,133,133,133,133,133,4294967295,20,3,2,1,93,4294967295,4294967295
+1212,Hardkore of the North,하드코어 오브 더 노스,Hardkore of the North,Hardkore of the North,Hardkore of the North,Diclonius Kid,Diclonius Kid,Diclonius Kid,Diclonius Kid,Diclonius Kid,190,190,190,190,190,4294967295,20,3,2,1,102,4294967295,4294967295
+1218,Rippin' It Up,리핑 잇 업,Rippin' It Up,Rippin' It Up,Rippin' It Up,Future Funk Squad,Future Funk Squad,Future Funk Squad,Future Funk Squad,Future Funk Squad,128,128,128,128,128,4294967295,20,3,2,1,110,4294967295,4294967295
+1219,Tribe Attacker,트라이브 어택커,Tribe Attacker,Tribe Attacker,Tribe Attacker,Hi-G,Hi-G,Hi-G,Hi-G,Hi-G,150,150,150,150,150,4294967295,20,3,2,1,103,4294967295,4294967295
+1221,Virtual Emotion,버철 이모션,Virtual Emotion,Virtual Emotion,Virtual Emotion,Inspector K,Inspector K,Inspector K,Inspector K,Inspector K,180,180,180,180,180,4294967295,20,3,2,1,112,4294967295,4294967295
+1222,Take Me Back,테이크 미 백,Take Me Back,Take Me Back,Take Me Back,KaW,KaW,KaW,KaW,KaW,172,172,172,172,172,4294967295,20,3,2,1,114,4294967295,4294967295
+1225,RE-RAVE,리-레이브,RE-RAVE,RE-RAVE,RE-RAVE,KURi-ZiLL,KURi-ZiLL,KURi-ZiLL,KURi-ZiLL,KURi-ZiLL,146,146,146,146,146,4294967295,20,3,2,1,101,4294967295,4294967295
+1226,Heel and Toe ,힐 앤 토,Heel and Toe ,Heel and Toe ,Heel and Toe ,KURi-ZiLL,KURi-ZiLL,KURi-ZiLL,KURi-ZiLL,KURi-ZiLL,185,185,185,185,185,4294967295,20,3,2,1,111,4294967295,4294967295
+1228,Dream To Nightmare,드림 투 나이트메어,Dream To Nightmare,Dream To Nightmare,Dream To Nightmare,Nightmare,Nightmare,Nightmare,Nightmare,Nightmare,178,178,178,178,178,4294967295,21,3,2,1,109,4294967295,4294967295
+1230,Rainspark,레인스파크,Rainspark,Rainspark,Rainspark,Sanxion7,Sanxion7,Sanxion7,Sanxion7,Sanxion7,125,125,125,125,125,4294967295,20,3,2,1,107,4294967295,4294967295
+1235,Utopia,유토피아,Utopia,Utopia,Utopia,Smiley,Smiley,Smiley,Smiley,Smiley,166,166,166,166,166,4294967295,20,3,2,1,112,4294967295,4294967295
+1236,Xuxa,슈샤,Xuxa,Xuxa,Xuxa,Smiley,Smiley,Smiley,Smiley,Smiley,160,160,160,160,160,4294967295,20,3,2,1,109,4294967295,4294967295
+1237,Be Alive (Raaban Inc. Mix),비 얼라이브 (Raaban Inc. Mix),Be Alive (Raaban Inc. Mix),Be Alive (Raaban Inc. Mix),Be Alive (Raaban Inc. Mix),Stian K,Stian K,Stian K,Stian K,Stian K,142,142,142,142,142,4294967295,20,3,2,1,105,4294967295,4294967295
+1240,VVV,VVV,VVV,VVV,VVV,ZiGZaG,ZiGZaG,ZiGZaG,ZiGZaG,ZiGZaG,310,310,310,310,310,4294967295,21,3,2,1,108,4294967295,4294967295
+1241,Star Command,스타 커맨드,Star Command,Star Command,Star Command,Zircon,Zircon,Zircon,Zircon,Zircon,155,155,155,155,155,4294967295,20,3,2,1,113,4294967295,4294967295
+1301,Pop The Track,팝 더 트랙,Pop The Track,Pop The Track,Pop The Track,"J-Mi & Midi-D & Ft. Hanna Stockzell","J-Mi & Midi-D & Ft. Hanna Stockzell","J-Mi & Midi-D & Ft. Hanna Stockzell","J-Mi & Midi-D & Ft. Hanna Stockzell","J-Mi & Midi-D & Ft. Hanna Stockzell",160,160,160,160,160,4294967295,21,3,2,1,114,4294967295,4294967295
+1302,Electric,일렉트릭,Electric,Electric,Electric,The DNC,The DNC,The DNC,The DNC,The DNC,120,120,120,120,120,4294967295,21,3,2,1,113,4294967295,4294967295
+1303,Passacaglia,파사칼리아,Passacaglia,Passacaglia,Passacaglia,SynthWulf,SynthWulf,SynthWulf,SynthWulf,SynthWulf,175,175,175,175,175,4294967295,21,3,2,1,113,4294967295,4294967295
+1304,Baroque Virus,바로크 바이러스,Baroque Virus,Baroque Virus,Baroque Virus,Zircon,Zircon,Zircon,Zircon,Zircon,135,135,135,135,135,4294967295,21,3,2,1,116,4294967295,4294967295
+1305,Elise,엘리제,Elise,Elise,Elise,DM Ashura,DM Ashura,DM Ashura,DM Ashura,DM Ashura,162,162,162,162,162,4294967295,21,1,2,1,119,4294967295,4294967295
+1306,Ignis Fatuus(DM Ashura Mix),이그니스 패터스(DM Ashura 믹스),Ignis Fatuus(DM Ashura Mix),Ignis Fatuus(DM Ashura Mix),Ignis Fatuus(DM Ashura Mix),BanYa & DM Ashura,반야 & DM Ashura,BanYa & DM Ashura,BanYa & DM Ashura,BanYa & DM Ashura,220,220,220,220,220,4294967295,21,1,2,1,118,4294967295,4294967295
+1307,Love Is A Danger Zone(Cranky Mix),러브 이즈 어 데인저 존(Cranky 믹스),Love Is A Danger Zone(Cranky Mix),Love Is A Danger Zone(Cranky Mix),Love Is A Danger Zone(Cranky Mix),BanYa & Cranky,반야 & Cranky,BanYa & Cranky,BanYa & Cranky,BanYa & Cranky,155,155,155,155,155,4294967295,21,1,2,1,122,4294967295,4294967295
+1308,Hypnosis(SynthWulf Mix),힙노시스(SynthWulf 믹스),Hypnosis(SynthWulf Mix),Hypnosis(SynthWulf Mix),Hypnosis(SynthWulf Mix),BanYa & SynthWulf,반야 & SynthWulf,BanYa & SynthWulf,BanYa & SynthWulf,BanYa & SynthWulf,175,175,175,175,175,4294967295,21,1,2,1,120,4294967295,4294967295
+1309,FFF,에프 에프 에프,FFF,FFF,FFF,Doin,도인,Doin,Doin,Doin,200,200,200,200,200,4294967295,21,1,2,1,110,4294967295,4294967295
+1310,Unique,유니크,Unique,Unique,Unique,SHK,SHK,SHK,SHK,SHK,145,145,145,145,145,4294967295,21,1,2,1,120,4294967295,4294967295
+1311,Accident,엑시던트,Accident,Accident,Accident,MAX,맥스,MAX,MAX,MAX,183,183,183,183,183,4294967295,21,1,2,1,105,4294967295,4294967295
+1312,D,디,D,D,D,MAX,맥스,MAX,MAX,MAX,180,180,180,180,180,4294967295,21,1,2,1,100,4294967295,4294967295
+1313,U Got Me Rocking,유 갓 미 락킹,U Got Me Rocking,U Got Me Rocking,U Got Me Rocking,MAX,맥스,MAX,MAX,MAX,128,128,128,128,128,4294967295,21,1,2,1,109,4294967295,4294967295
+1314,Lucid(PIU Edit),루시드(PIU Edit),Lucid(PIU Edit),Lucid(PIU Edit),Lucid(PIU Edit),Yak Won,약 원,Yak Won,Yak Won,Yak Won,40-190,40-190,40-190,40-190,40-190,4294967295,21,1,2,1,109,4294967295,4294967295
+1315,Nobody,노바디,Nobody,Nobody,Nobody,Wonder Girls,원더걸스,Wonder Girls,Wonder Girls,Wonder Girls,131,131,131,131,131,4294967295,21,2,2,1,99,4294967295,4294967295
+1316,Bad Girl Good Girl,배드 걸 굿 걸,Bad Girl Good Girl,Bad Girl Good Girl,Bad Girl Good Girl,Miss A,미스 에이,Miss A,Miss A,Miss A,136,136,136,136,136,4294967295,21,2,2,1,109,4294967295,4294967295
+1317,Step,스텝,Step,Step,Step,KARA,카라,KARA,KARA,KARA,123,123,123,123,123,4294967295,21,2,2,1,115,4294967295,4294967295
+1318,I'm The Best,내가 제일 잘 나가,I'm The Best,I'm The Best,I'm The Best,2NE1,2NE1,2NE1,2NE1,2NE1,128,128,128,128,128,4294967295,21,2,2,1,106,4294967295,4294967295
+1319,Can't Nobody,캔노바디,Can't Nobody,Can't Nobody,Can't Nobody,2NE1,2NE1,2NE1,2NE1,2NE1,130,130,130,130,130,4294967295,21,2,2,1,128,4294967295,4294967295
+1320,Shanghai Romance,샹하이 로맨스,Shanghai Romance,Shanghai Romance,Shanghai Romance,Orange Caramel,오렌지 캬라멜,Orange Caramel,Orange Caramel,Orange Caramel,149,149,149,149,149,4294967295,21,2,2,1,121,4294967295,4294967295
+1321,Fantastic Baby,판타스틱 베이비,Fantastic Baby,Fantastic Baby,Fantastic Baby,Bigbang,빅뱅,Bigbang,Bigbang,Bigbang,130,130,130,130,130,4294967295,21,2,2,1,110,4294967295,4294967295
+1322,Lie,거짓말,Lie,Lie,Lie,Bigbang,빅뱅,Bigbang,Bigbang,Bigbang,125,125,125,125,125,4294967295,21,2,2,1,104,4294967295,4294967295
+1323,Heart Breaker,하트 브레이커,Heart Breaker,Heart Breaker,Heart Breaker,G-Dragon,지 드래곤,G-Dragon,G-Dragon,G-Dragon,135,135,135,135,135,4294967295,21,2,2,1,115,4294967295,4294967295
+1324,Hands Up East4A mix,핸즈 업 East4A 믹스,Hands Up East4A mix,Hands Up East4A mix,Hands Up East4A mix,2PM,투피엠,2PM,2PM,2PM,130,130,130,130,130,4294967295,21,2,2,1,114,4294967295,4294967295
+1325,Be Mine,내꺼하자,Be Mine,Be Mine,Be Mine,Infinite,인피니트,Infinite,Infinite,Infinite,130,130,130,130,130,4294967295,21,2,2,1,125,4294967295,4294967295
+1326,Crayon,크레용,Crayon,Crayon,Crayon,G-Dragon,지 드래곤,G-Dragon,G-Dragon,G-Dragon,132,132,132,132,132,4294967295,21,2,2,1,115,4294967295,4294967295
+1327,Mackerel,고등어,Mackerel,Mackerel,Mackerel,Norazo,노라조,Norazo,Norazo,Norazo,150,150,150,150,150,4294967295,21,2,2,1,111,4294967295,4294967295
+1328,Two Guys,두마리,Two Guys,Two Guys,Two Guys,Bae Chi Gi,배치기,Bae Chi Gi,Bae Chi Gi,Bae Chi Gi,128,128,128,128,128,4294967295,21,2,2,1,121,4294967295,4294967295
+1329,Danza Kuduro,댄스 코두루,Danza Kuduro,Danza Kuduro,Danza Kuduro,Don Omar & Ft. Lucenzo,Don Omar & Ft. Lucenzo,Don Omar & Ft. Lucenzo,Don Omar & Ft. Lucenzo,Don Omar & Ft. Lucenzo,130,130,130,130,130,4294967295,21,3,2,1,108,4294967295,4294967295
+1330,Rabiosa,라비오사,Rabiosa,Rabiosa,Rabiosa,Shakira & Ft. Pitbull,Shakira & Ft. Pitbull,Shakira & Ft. Pitbull,Shakira & Ft. Pitbull,Shakira & Ft. Pitbull,133,133,133,133,133,4294967295,21,3,2,1,120,4294967295,4294967295
+1331,Lovumba,러붐바,Lovumba,Lovumba,Lovumba,Daddy Yankee,Daddy Yankee,Daddy Yankee,Daddy Yankee,Daddy Yankee,121,121,121,121,121,4294967295,21,3,2,1,107,4294967295,4294967295
+1332,One Two Three Go!,원 투 쓰리 고!,One Two Three Go!,One Two Three Go!,One Two Three Go!,Belanova,Belanova,Belanova,Belanova,Belanova,150,150,150,150,150,4294967295,21,3,2,1,98,4294967295,4294967295
+1333,Los Malaventurados No Lloran,불행한 사람들은 울지 않는다,Los Malaventurados No Lloran,Los Malaventurados No Lloran,Los Malaventurados No Lloran,PXNDX,판다,PXNDX,PXNDX,PXNDX,172,172,172,172,172,4294967295,21,3,2,1,106,4294967295,4294967295
+1334,Sik Asik,식 아식,Sik Asik,Sik Asik,Sik Asik,Ayu Ting Ting,Ayu Ting Ting,Ayu Ting Ting,Ayu Ting Ting,Ayu Ting Ting,147,147,147,147,147,4294967295,21,3,2,1,115,4294967295,4294967295
+1335,Online,온라인,Online,Online,Online,Saykoji,Saykoji,Saykoji,Saykoji,Saykoji,118,118,118,118,118,4294967295,21,3,2,1,113,4294967295,4294967295
+1336,Dam,담,Dam,Dam,Dam,Ben Chalatit,Ben Chalatit,Ben Chalatit,Ben Chalatit,Ben Chalatit,144,144,144,144,144,4294967295,21,3,2,1,114,4294967295,4294967295
+1337,Sugar Eyes,슈가 아이즈,Sugar Eyes,Sugar Eyes,Sugar Eyes,Sugar Eyes,Sugar Eyes,Sugar Eyes,Sugar Eyes,Sugar Eyes,122,122,122,122,122,4294967295,21,3,2,1,115,4294967295,4294967295
+1390,Mental Rider,멘탈 라이더,Mental Rider,Mental Rider,Mental Rider,SQUAR,SQUAR,SQUAR,SQUAR,SQUAR,120-140,120-140,120-140,120-140,120-140,4294967295,21,1,2,1,104,4294967295,4294967295
+13A0,BIG to the BANG,빅 투 더 뱅,BIG to the BANG,BIG to the BANG,BIG to the BANG,Bigbang & MAX,빅뱅 & 맥스,Bigbang & MAX,Bigbang & MAX,Bigbang & MAX,135,135,135,135,135,4294967295,21,2,3,1,158,4294967295,4294967295
+13A1,Super Mackerel,슈퍼 고등어,Super Mackerel,Super Mackerel,Super Mackerel,Norazo & MAX,노라조 & 맥스,Norazo & MAX,Norazo & MAX,Norazo & MAX,150,150,150,150,150,4294967295,21,2,3,1,150,4294967295,4294967295
+13A2,Infinity RMX,인피니티 리믹스,Infinity RMX,Infinity RMX,Infinity RMX,SynthWulf & MAX,SynthWulf & 맥스,SynthWulf & MAX,SynthWulf & MAX,SynthWulf & MAX,175,175,175,175,175,4294967295,21,1,3,1,158,4294967295,4294967295
+13A3,What Are You Doin'?,와라유도인?,What Are You Doin'?,What Are You Doin'?,What Are You Doin'?,Doin & MAX,도인 & 맥스,Doin & MAX,Doin & MAX,Doin & MAX,200,200,200,200,200,4294967295,21,1,3,1,172,4294967295,4294967295
+13C0,STEP,스텝,STEP,STEP,STEP,KARA,카라,KARA,KARA,KARA,123,123,123,123,123,4294967295,21,2,4,1,201,4294967295,4294967295
+13C1,I'm The Best,내가 제일 잘 나가,I'm The Best,I'm The Best,I'm The Best,2NE1,2NE1,2NE1,2NE1,2NE1,128,128,128,128,128,4294967295,21,2,4,1,207,4294967295,4294967295
+13C2,Shanghai Romance,샹하이 로맨스,Shanghai Romance,Shanghai Romance,Shanghai Romance,Orange Caramel,오렌지 캬라멜,Orange Caramel,Orange Caramel,Orange Caramel,149,149,149,149,149,4294967295,21,2,4,1,225,4294967295,4294967295
+13C3,Fantastic Baby,판타스틱 베이비,Fantastic Baby,Fantastic Baby,Fantastic Baby,Bigbang,빅뱅,Bigbang,Bigbang,Bigbang,130,130,130,130,130,4294967295,21,2,4,1,228,4294967295,4294967295
+13C4,Can't Nobody,캔노바디,Can't Nobody,Can't Nobody,Can't Nobody,2NE1,2NE1,2NE1,2NE1,2NE1,130,130,130,130,130,4294967295,21,2,4,1,204,4294967295,4294967295
+13C5,Heart Breaker,하트 브레이커,Heart Breaker,Heart Breaker,Heart Breaker,G-Dragon,지 드래곤,G-Dragon,G-Dragon,G-Dragon,135,135,135,135,135,4294967295,21,2,4,1,200,4294967295,4294967295
+13C6,Mackerel,고등어,Mackerel,Mackerel,Mackerel,Norazo,노라조,Norazo,Norazo,Norazo,150,150,150,150,150,4294967295,21,2,4,1,195,4294967295,4294967295
+13C7,Crayon,크레용,Crayon,Crayon,Crayon,G-Dragon,지 드래곤,G-Dragon,G-Dragon,G-Dragon,132,132,132,132,132,4294967295,21,2,4,1,198,4294967295,4294967295
+13C8,Danza Kuduro,댄스 코두루,Danza Kuduro,Danza Kuduro,Danza Kuduro,Don Omar & Ft. Lucenzo,Don Omar & Ft. Lucenzo,Don Omar & Ft. Lucenzo,Don Omar & Ft. Lucenzo,Don Omar & Ft. Lucenzo,130,130,130,130,130,4294967295,21,3,4,1,197,4294967295,4294967295
