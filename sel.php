@@ -42,7 +42,6 @@
 				padding:0;
 				margin:0;
 				font-weight: bold;
-				overflow:hidden;
 			}
 	</style>
 	<script src="js/jquery-1.10.1.min.js"></script>
@@ -112,6 +111,19 @@
 <canvas width=640 height=480 id="gamescreen"></canvas>
 <BR><BR>
 <span style="color: white">
+For this demo the song opener is disabled because I didnt share all the assets.<BR>
+Depending on your internet connection the preview songs and videos can take a while to load. I didnt preloaded them.<BR>
+Have fun! <BR>
+Keys: <BR>
+Z => Move Left <BR>
+C => Move Right <BR>
+S => Center (Enter) <BR>
+Q => Back Left <BR>
+E => Back Right <BR>
+
+Codes: 
+-   Speed UP: Q E Q E Q E S <BR>
+-   Speed Down: E Q E Q E Q S <BR>
 CTRL + P - Enable/Disable Preview Video<BR>
 CTRL + S - Enable/Disable Sound
 </span>

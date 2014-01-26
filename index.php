@@ -59,6 +59,7 @@
 <center>
 <BR><BR>
     Okay so here we have two options for testing:<BR>
+    Menu Selector ( Open Song Disabled ) - <a href="sel.php">Open</a><BR>
     NX20 Jpak File  (Hypnosis Synthwulf Mix) - <a href="nxjpak.php#SongID=1308#Mode=DOUBLE#Level=20#scrollSpeed=3">Open</a><BR>
     UCS File (StarCommand S12) - <a href="ucsgame.php#SongID=S12#UCS=S12#scrollSpeed=3">Open</a><BR>
     
