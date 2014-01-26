@@ -257,9 +257,9 @@ PUMP_SELECTOR.Game = PUMP_SELECTOR.Game || function ( parameters ) {
                                         var Location = (SelSong.mission)?"MISSION":( (SelSong.training)?"TRAINING":"ARCADE");
                                         var Level = SelSong.levellist[SelLevel].reallevel;
                                         var Mode  = SelSong.levellist[SelLevel].type.toUpperCase();
-                                        console.log(SelSong);
                                         PUMP_SELECTOR.Globals.SoundManager.Music.Pause();
-                                        PUMP_SELECTOR.Globals.PumpGame = PUMP_SELECTOR.LoadNX( _this.Looper.Speed, SelSong.songid, Mode, Level, Location );
+                                        alert("Function disabled on this sample");
+                                        //PUMP_SELECTOR.Globals.PumpGame = PUMP_SELECTOR.LoadNX( _this.Looper.Speed, SelSong.songid, Mode, Level, Location );
                                     }else
                                         PUMP_SELECTOR.Globals.ChartSelected = true;
                                     
