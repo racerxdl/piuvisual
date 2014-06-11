@@ -89,6 +89,18 @@ PUMPER.debug  =   function(msg)   {
         console.log("PUMPER(debug):> "+msg);
 };
 
+PUMPER.FixTo3	=	function(val)	{
+	return PUMPER.Pad(val.toFixed(3),7);
+};
+PUMPER.Pad		=	function(num, size) {
+    var s = "000000000" + num;
+    return s.substr(s.length-size);
+};
+PUMPER.UpdateInfoHead	=	function()	{
+    if($("#infohead") !== undefined)
+    	$("#infohead").html("BPM: "+PUMPER.Globals.CurrentBPM+" BEAT "+PUMPER.FixTo3(PUMPER.Globals.Game.notedata.CurrentBeat)+" TIME: "+PUMPER.FixTo3(PUMPER.Globals.Music.GetTime())+" BLOCK: "+PUMPER.Pad(PUMPER.Globals.Game.notedata.CurrentBPMChange,3)+" SPEED: "+PUMPER.ScrollSpeed+"x");
+};
+
 //  Skin Properties
 PUMPER.ArrowSize                = 64;
 PUMPER.ShowWidth                = 50;

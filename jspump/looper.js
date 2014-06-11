@@ -50,11 +50,14 @@ PUMPER.Looper.prototype.loop = function()  {
                 this.Skin.Update(PUMPER.Globals.Music.GetTime());
                 this.Drawer.NoteBlock = this.NoteData.GetBeatBlock(PUMPER.ScreenHeight);
                 this.Drawer.DrawLayers();
-                $("#time").html(PUMPER.Globals.Music.GetTime());
-                $("#beat").html(PUMPER.Globals.NoteData.CurrentBeat);
+                if($("#time") !== undefined)
+                    $("#time").html(PUMPER.Globals.Music.GetTime());
+                if($("#time") !== undefined)
+                    $("#beat").html(PUMPER.Globals.NoteData.CurrentBeat);
             }
         }
     }
+    PUMPER.UpdateInfoHead();
     if(PUMPER.Globals.FPSStats != undefined)
         PUMPER.Globals.FPSStats.update();
 };

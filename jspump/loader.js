@@ -152,9 +152,28 @@ PUMPER.GameLoader.prototype.Load    =   function()  {
                 this.jpakloader.Load();            
             }
             break;
+        case PUMPER.TypeSSC:
+            if(this.loadargs["sscfile"] !== undefined && this.loadargs["level"] !== undefined) {
+                //this.soundfile = (this.compcodec.audio.indexOf("mp3") > -1)?"ucs/mp3/"+this.loadargs.songid+".mp3":"ucs/ogg/"+this.loadargs.songid+".ogg";
+                this.soundfile = "ssc/ogg/"+this.loadargs.sscname+".ogg";
+                this.imagefile = "ssc/img/"+this.loadargs.sscname+".png";
+                $.ajax({
+                    url : _this.loadargs.sscfile,
+                    dataType: "text",
+                        success : function (data) {
+                            console.log("LOADED");
+                            _this._SSC = PUMPER.SSCParser(data);
+                            var gameCanvas = document.getElementById(_this.canvasname);
+                            PUMPER.Globals.PumpGame = new PUMPER.Game({"notedata" : _this._SSC, "musicfile" : _this.soundfile, "canvas": gameCanvas, "stats" : _this.gamestats});
+                            PUMPER.Globals.PumpGame.AddBackground(_this.imagefile);
+                            _this.Animate();
+                        }
+                });
+            }else
+                PUMPER.debug("No UCS file specifed!");               
+            break;
         case PUMPER.TypeSM:
         case PUMPER.TypeSMA:
-        case PUMPER.TypeSSC:
             PUMPER.debug("Not implemented!");
             break;
     

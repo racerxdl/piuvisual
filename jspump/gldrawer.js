@@ -118,7 +118,6 @@ PUMPER.GL.Drawer.prototype.DrawNotes   =   function() {
                         while(k<klen)   {
                             if(this.HoldBuffer[n][k].beatfrom == row.rowbeat)   {
                                 this.HoldBuffer[n][k].y = row.y;
-                                //this.HoldBuffer[n][k].opacity = note.opacity;
                                 found = true;
                                 break;
                             }

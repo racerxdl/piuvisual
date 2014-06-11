@@ -138,8 +138,7 @@ PUMPER.Drawer.prototype.DrawNotes   =   function() {
             Hold.y = PUMPER.Globals.NoteData.GetBeatY(Hold.beatfrom);
             if(Hold.y < PUMPER.OffsetY)
                 Hold.y = PUMPER.OffsetY;
-            this.DrawHoldBody(ctx, Hold.opacity, Hold.pos, Hold.y, Hold.seed, Hold.attr, y-Hold.y);
-            
+            this.DrawHoldBody(ctx, Hold.opacity, Hold.pos, Hold.y, Hold.seed, Hold.attr, y-Hold.y); 
             if( Hold.y >= PUMPER.OffsetY)   {
                 this.DrawNote(PUMPER.NoteTap, Hold.opacity, Hold.pos, Hold.y, 0, Hold.seed, Hold.attr);
             }else if( Hold.y <= PUMPER.OffsetY || ( Hold.y < PUMPER.OffsetY-3 && y > PUMPER.OffsetY-32) ) 
