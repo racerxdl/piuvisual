@@ -29,14 +29,21 @@
     may have different license including but not limited to JPAK, jQuery and others.
 
 */
+
+
 /*************************  Game  **************************/
+/*
+ * This is the Game Class. Everything will be hooked up here.
+ * The constructor initializes the Effects, Sentinel, Drawer, Looper, Skin and all stuff.
+ */
 PUMPER.Game = PUMPER.Game || function ( parameters ) {
-    var _selfgame = this;
+    //var _selfgame = this;
     if(parameters.canvas === undefined)
-        PUMPER.debug("No canvas!!")
+        PUMPER.debug("No canvas!!");
     if(parameters.notedata === undefined)
         PUMPER.debug("No notedata!!");
     
+    //	Creates the Sentinel
     PUMPER.Globals.Game     =   this;
     PUMPER.Globals.Sentinel =   new PUMPER.Sentinel();
     PUMPER.Globals.Sentinel.InitSession();
@@ -49,9 +56,11 @@ PUMPER.Game = PUMPER.Game || function ( parameters ) {
         $("body").append("<div style=\"color: white\">WebGL Render</div>");
     }else
         $("body").append("<div style=\"color: white\">Canvas Render</div>");
-    //  Audio
+    
+    //  Loads the bomb audio
     PUMPER.Globals.Bomb     =   new PUMPER.SoundPlayer({"filename":"audio/bomb2", "reset":true, "buildnew" : true});
-    // 
+    
+    //	Loads canvas, webgl and game parameters.
     this.canvas             =   parameters.canvas || document.createElement('canvas');
     this.glopts             =   { antialias : false };
     this.gl                 =   (PUMPER.Globals.WebGL) ? ( (PUMPER.Globals.glExperimental)? this.canvas.getContext("experimental-webgl", this.glopts ) : this.canvas.getContext("webgl", this.glopts ) ) : undefined;
@@ -93,21 +102,40 @@ PUMPER.Game = PUMPER.Game || function ( parameters ) {
       }
     }
     PUMPER.Globals.LoadStarted = true;
-    $(window).blur(function() {
+    
+    /**
+     * 	This will pause the music if user focus out from the screen.
+     */
+    $(window).blur(function() {	
 	    PUMPER.Globals.Music.Pause();
 	});
+    /*	//	Not used anymore
 	this.wPlay = function() {
 	    PUMPER.Globals.Music.Play();
 	};
+	*/
 };
 
+/*
+ * 	Plays the music
+ */
 PUMPER.Game.prototype.Play  =   function()  {
     PUMPER.Globals.Music.Play();
     //_selfgame.wPlay();
 };
+
+/*
+ * 	Pauses the music
+ */
 PUMPER.Game.prototype.Pause =   function()  {
     PUMPER.Globals.Music.Pause();
 };
+
+/*
+ * 	This is for adding a background image to the system.
+ * 	For WebGL we need to create a texture and a Background object. But in default way, we initialize a PIUBGAOFF Shader Background.
+ * 	For 2D Canvas, we just resize it to fit on the screen.
+ */
 PUMPER.Game.prototype.AddBackground = function(image)   {
     var bg = new Image();
     var _drawer = this;
