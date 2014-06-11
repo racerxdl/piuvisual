@@ -30,6 +30,10 @@
 
 */
 /************************* AnimatedObject **************************/
+/*
+ * This is the Animated Object Class.
+ * It has few stuff for helping the animated objects
+ */
 PUMPER.AnimatedObject = PUMPER.AnimatedObject || function (parameters) {
     if(parameters === undefined)    return;
     this.opacity    = parameters.opacity !== undefined ? parameters.opacity : 1;
@@ -69,10 +73,11 @@ PUMPER.AnimatedObject = PUMPER.AnimatedObject || function (parameters) {
         this.image.XStep = 1.0 / this.image.width;
         this.image.YStep = 1.0 / this.image.height;
     }
-    //PUMPER.debug("Created new PUMPER::AnimatedObject with id "+this.id);
-    
 };
 
+/*
+ * 	This function draws the object in given context.
+ */
 PUMPER.AnimatedObject.prototype.Draw = function(ctx)   {
     if(this.opacity != 0 && this.visible)  {
         var oldAlpha = ctx.globalAlpha;
@@ -101,6 +106,11 @@ PUMPER.AnimatedObject.prototype.Draw = function(ctx)   {
         this.NeedsRedraw = false;
     }        
 };
+
+/*
+ * 	This does the WebGL related updates.
+ * 	It updates everything of the object.
+ */
 PUMPER.AnimatedObject.prototype.GLUpdate  = function()  {
     if(this.NeedsRedraw)    {
         var data = PUMPER.GL.GenSprite(this.x,this.y,this.coord[2]-this.coord[0],this.coord[3]-this.coord[1],this.coord[0]*this.image.XStep,this.coord[1]*this.image.YStep,this.coord[2]*this.image.XStep,this.coord[3]*this.image.YStep,1,0);
@@ -118,6 +128,11 @@ PUMPER.AnimatedObject.prototype.GLUpdate  = function()  {
     if(this.shd != undefined)
         this.shd.Render();
 };   
+
+/*
+ * 	Check the lifetime of the object.
+ *	and removes if it passed.
+ */
 PUMPER.AnimatedObject.prototype.CheckLife = function(timeDelta)    {
         if(!this.infinite)
             this.livedtime += timeDelta;
@@ -127,11 +142,19 @@ PUMPER.AnimatedObject.prototype.CheckLife = function(timeDelta)    {
         }    
         return false;
 };
+
+/*
+ * 	The Ressurect method resets the lifetime of the object.
+ */
 PUMPER.AnimatedObject.prototype.Ressurect   = function(lifetime)    {
     this.lifetime = lifetime || this.lifetime || 0;
     this.livedtime = 0;
     this.NeedsRedraw = true;
 };
+
+/*
+ * 	Sets the position of the object.
+ */
 PUMPER.AnimatedObject.prototype.SetPosition = function(x,y) {
     if(!PUMPER.Globals.SubPixelRender)  {
         x = x >> 0;
@@ -143,6 +166,10 @@ PUMPER.AnimatedObject.prototype.SetPosition = function(x,y) {
         this.NeedsRedraw = true;
     }    
 };
+
+/*
+ * 	Set X position of the object
+ */
 PUMPER.AnimatedObject.prototype.SetX        = function(x)   {
     if(!PUMPER.Globals.SubPixelRender)  
         x = x >> 0;
@@ -151,6 +178,10 @@ PUMPER.AnimatedObject.prototype.SetX        = function(x)   {
         this.NeedsRedraw = true;
     }
 };
+
+/*
+ * 	Set Y position of the object
+ */
 PUMPER.AnimatedObject.prototype.SetY        = function(y)   {
     if(!PUMPER.Globals.SubPixelRender)  
         y = y >> 0;
@@ -159,6 +190,10 @@ PUMPER.AnimatedObject.prototype.SetY        = function(y)   {
         this.NeedsRedraw = true;
     }
 };
+
+/*
+ * 	Set scale of the object
+ */
 PUMPER.AnimatedObject.prototype.SetScale    = function(x,y) {
     if(!PUMPER.Globals.SubPixelRender)  {
         x = x >> 0;
@@ -170,6 +205,10 @@ PUMPER.AnimatedObject.prototype.SetScale    = function(x,y) {
         this.NeedsRedraw = true;
     }
 };
+
+/*
+ * 	Set X Scale of the object
+ */
 PUMPER.AnimatedObject.prototype.SetScaleX   = function(x)   {
     if(!PUMPER.Globals.SubPixelRender)  
         x = x >> 0;
@@ -178,6 +217,10 @@ PUMPER.AnimatedObject.prototype.SetScaleX   = function(x)   {
         this.NeedsRedraw = true;
     }
 };
+
+/*
+ * 	Set Y Scale of the object
+ */
 PUMPER.AnimatedObject.prototype.SetScaleY   = function(y)   {
     if(!PUMPER.Globals.SubPixelRender)  
         y = y >> 0;
@@ -186,23 +229,30 @@ PUMPER.AnimatedObject.prototype.SetScaleY   = function(y)   {
         this.NeedsRedraw = true;
     }
 };
+
+/*
+ * 	Sets the object visibility
+ */
 PUMPER.AnimatedObject.prototype.SetVisible  = function(visible) {
     if(visible != this.visible) {
         this.visible = visible;
         this.NeedsRedraw = true;
     }
 };
+
+/*
+ * 	Returns an clone of this object
+ */
 PUMPER.AnimatedObject.prototype.Clone = function()  {
     return new PUMPER.AnimatedObject({"opacity" : this.opacity, "x" : this.x, "y" : this.y, "scale" : { "x" : this.scale.x, "y" : this.scale.y}, "rotation" : this.rotation, "layer" : this.layer, "image" : this.image, "infinite": this.infinite, "lifetime" : this.lifetime, "visible": this.visible, "Update" : this.Update, "gl" : this.gl, "coord" : this.coord}); 
-    /*
-    var copy = new PUMPER.AnimatedObject({});
-    for (var attr in this) {
-        if (this.hasOwnProperty(attr)) copy[attr] = this[attr];
-    }
-    return copy;*/
 };
 
 /************************* FrameObject **************************/
+
+/*
+ * 	The FrameObject Class
+ * 	This class is the same as above, but for frame animated object
+ */
 PUMPER.FrameObject = PUMPER.FrameObject || function(parameters) {
     this.opacity    = parameters.opacity !== undefined ? parameters.opacity : 1;
     this.x          = parameters.x          || 0;
@@ -246,9 +296,12 @@ PUMPER.FrameObject = PUMPER.FrameObject || function(parameters) {
     PUMPER.debug("Created new PUMPER::FrameObject with id "+this.id);
 };
 
-PUMPER.FrameObject.prototype = new PUMPER.AnimatedObject();
+PUMPER.FrameObject.prototype = new PUMPER.AnimatedObject();		//	The SuperClass
 PUMPER.FrameObject.prototype.constructor = PUMPER.FrameObject;
 
+/*
+ * 	Updates the frame given timeDelta
+ */
 PUMPER.FrameObject.prototype.Update = function(timeDelta)   {
     if(this.Running)    {
         this.CurrentFrame += (timeDelta/1000) * this.FrameTime;
@@ -267,6 +320,10 @@ PUMPER.FrameObject.prototype.Update = function(timeDelta)   {
         this.visible = false;
     }
 };
+
+/*
+ * 	Starts the animation
+ */
 PUMPER.FrameObject.prototype.Start  =   function(beat)  {
     if(beat !== undefined)  {
         if(this.beat != (beat*100) >>> 0)   {
@@ -280,6 +337,10 @@ PUMPER.FrameObject.prototype.Start  =   function(beat)  {
     }
     return this;
 };
+
+/*
+ * 	Stops the animation
+ */
 PUMPER.FrameObject.prototype.Stop   =  function()   {
     this.CurrentFrame = 0;
     this.visible = false;
