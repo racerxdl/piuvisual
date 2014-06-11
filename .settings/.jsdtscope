@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="js"/>
+	<classpathentry kind="src" path="jspump"/>
+	<classpathentry kind="src" path="jsselector"/>
+	<classpathentry kind="src" path="ssc"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path=""/>
+</classpath>

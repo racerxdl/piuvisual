@@ -99,8 +99,8 @@
 			GameStats.domElement.style.left = '0px';
 			GameStats.domElement.style.top = '0px';
 			document.body.appendChild( GameStats.domElement );
-			var GameParameters = PUMPER.parseHashes();
-			PUMPER.ScrollSpeed = (GameParameters.scrollSpeed!==undefined)?GameParameters.scrollSpeed:3;
+			var GameParameters = PUMPER.parseHashes();			//	PUMPER function to parse URL Hashes into JS Object
+			PUMPER.ScrollSpeed = (GameParameters.scrollSpeed!==undefined)?GameParameters.scrollSpeed:3;	//	This loads the ScrollSpeed from URL Hashes
 			PUMPER.JPAKFile    = "nx20/"+GameParameters.SongID + ".jpak";
 			PUMPER.JMode       = GameParameters.Mode;
 			PUMPER.Level       = GameParameters.Level;

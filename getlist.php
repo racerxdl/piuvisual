@@ -30,14 +30,21 @@
     may have different license including but not limited to JPAK, jQuery and others.
 
 */
-include("inc/piutools.php");
-header('Content-Type: text/json; charset=utf-8');
-$f = fopen("LIST_STEPS.csv","r");
-$steps = BuildStepList($f);
-fclose($f);
-$f = fopen("LIST_SONGS.csv", "r");
+
+/*
+ * 	This script generates a JSON List of the songs/steps listed on LIST_STEPS.csv and LIST_SONGS.csv
+ * 	Those CSV files was extracted from Pump It Up Fiesta 2
+ */
+
+include("inc/piutools.php");						//	Include PIU Tools
+
+header('Content-Type: text/json; charset=utf-8');	//	Set the header to text/json, not strict necessary
+$f = fopen("LIST_STEPS.csv","r");					//	Read the steps csv
+$steps = BuildStepList($f);							//	Build the steplist with contents
+fclose($f);											//	Close the steplist
+$f = fopen("LIST_SONGS.csv", "r");					//	Do the same with songs
 $songs = BuildSongList($f);
 fclose($f);
-$songs = FillStepList($songs,$steps);
-$json = BuildJSONList($songs);
+$songs = FillStepList($songs,$steps);				//	This action will cross songs -> steps to one array
+$json = BuildJSONList($songs);						//	Build the JSON data for returning
 echo $json;

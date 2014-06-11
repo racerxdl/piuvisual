@@ -31,23 +31,28 @@
 
 */
 session_start();
-include("inc/piutools.php");
+
+include("inc/piutools.php");										//	Include PIU Tools
+
+/*
+ * 	Basicly this is the Sentinel API. Its pretty crap. Just works by doing random things.
+ */
 
 $type   =   "application/json";
 $output =   json_encode(array("e"=>"INVAL"));
 
-if(isset($_POST["a"]))  {       //  Post Actions
-    if(strcmp($_POST["a"], "gh") == 0)  {              //  Get Hash Action
+if(isset($_POST["a"]))  {       									//  Post Actions
+    if(strcmp($_POST["a"], "gh") == 0)  {              				//  Get Hash Action
         $sid = session_id();
         $seed = (int) $_POST["h"];
         for($i=0;$i<strlen($sid);$i++)    
-            $sid[$i] =  chr(ord($sid[$i]) ^ ($seed & ($i * 13))); // ($seed & ($i));
+            $sid[$i] =  chr(ord($sid[$i]) ^ ($seed & ($i * 13))); 	// ($seed & ($i));
         
         $type   =   "text/plain";
         $output =   $sid;
     }
-}else if(isset($_GET["a"])) {   //  Get Actions
-    if(strcmp($_GET["a"], "gs") == 0)   {             //  Get Session Action
+}else if(isset($_GET["a"])) {   									//  Get Actions
+    if(strcmp($_GET["a"], "gs") == 0)   {             				//  Get Session Action
         $k      =   rand(0,65535);
         $sid    =   session_id();
         $type   =   "application/json";

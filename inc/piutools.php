@@ -30,10 +30,16 @@
     may have different license including but not limited to JPAK, jQuery and others.
 
 */
+
+/*
+ * 	This function basicly returns an Array from a CSV Line
+ */
 function GetArrayLine($f)   {
     $data = fgetcsv($f);
     if($data !== FALSE) {
         /*
+         * In old times this was needed for converting KOREAN stuff to UTF-8.
+         * I think its not needed anymore I will keep here for some time
         foreach( $data as $key => $val ) {
             $data[$key] = trim( $data[$key] );
             $data[$key] = iconv('EUC-KR', 'UTF-8', $data[$key]."\0") ;
@@ -45,6 +51,12 @@ function GetArrayLine($f)   {
         return false;
 }
 
+/*
+ * 	This function Builds a song list with the file handler of the LIST_SONGS.CSV
+ * 	It strips out the songs titled NO_SONG and songs with ID FFFFFFFF
+ * 	It fills one array with all songs, with each song containing the CSV fields plus a empty field
+ * 	called "charts" that is an array that will contain the charts after merging lists.
+ */
 function BuildSongList($f)  {
     $head = GetArrayLine($f);
     $songs = array();
@@ -62,6 +74,9 @@ function BuildSongList($f)  {
     return $songs;
 }
 
+/*
+ * 	This will basicly do the same that BuildSongList does, but for charts.
+ */
 function BuildStepList($f)  {
     $head = GetArrayLine($f);
     $songs = array();
@@ -77,22 +92,25 @@ function BuildStepList($f)  {
     }
     return $songs;
 }
-function sorter($num)
-{
-    for ($i=0;$i<=count($num)-1;$i++)
-{
-    if($num[$i]>$num[$i+1])
-    {
-        //echo $num[$i].':'.$num[$i+1].'<br>';
-        $temp=$num[$i];
-        $num[$i]=$num[$i+1];
-        $num[$i+1]=$temp;
-        $num=sorter($num);
-    }
-    
+
+/*
+ * 	A sorter function to sort stuff
+ */
+function sorter($num)	{
+    for ($i=0;$i<=count($num)-1;$i++)	{
+	    if($num[$i]>$num[$i+1])	{
+	        $temp=$num[$i];
+	        $num[$i]=$num[$i+1];
+	        $num[$i+1]=$temp;
+	        $num=sorter($num);
+	    }
     }
     return $num;
 }
+
+/*
+ * 	This will sort songs on $songlist by their IDs
+ */
 function SortSongs($songlist)   {
     $sorted = array();
     
@@ -103,6 +121,10 @@ function SortSongs($songlist)   {
     return $sorted;
 }
 
+/*
+ * 	This will merge the $songs list with $steps list using the parameter PreviewChartOffset
+ * 	It will basicly return the $songs array with filled charts array
+ */
 function FillStepList($songs,$steps) {
     foreach($steps as $step)    {
         if(array_key_exists($step["PreviewChartOffset"],$songs))
@@ -111,7 +133,17 @@ function FillStepList($songs,$steps) {
     return $songs;
 }
 
+/*
+ * 	This function does the core of all stuff. Not only JSON.
+ * 	It will interpret the data from F2 Song Lists
+ * 	I'm skipping a few types of song (see below) for piuvisual,
+ * 	if you want it to show, just remove the part of the song "if" you want.
+ */
 function BuildJSONList($songlist)   {
+	/*
+	 * This is the mask of song type. For piuvisual I just need Double/Single and Performance types.
+	 * But I leave the other masks commented if interest to you.
+	 */
     $typemask = array(
         0x02 => array("double","single"),
         0x01 => array("performance","")
@@ -119,6 +151,10 @@ function BuildJSONList($songlist)   {
         //0x20 => array("newsong",""),
         //0x40 => array("hidden","")
     );
+    /*
+     * 	This is the game number list. Not all is confirmed. 
+     * 	I deduced most numbers less than 15.
+     */
     $gamelist  = array(
         "0"  => "All Tunes",
         "1"  => "1st-3rd",      //  1st Dance Floor
@@ -143,6 +179,9 @@ function BuildJSONList($songlist)   {
         "20" => "Fiesta 2",     //  Piu Pro/Pro2
         "21" => "Fiesta 2"      //  Fiesta 2
     );
+    /*
+     * 	Song modes. Censored doesnt appear at all on F2 play.
+     */
     $mode = array(
         0   => "Censored",
         1   => "Shortcut",
@@ -151,15 +190,14 @@ function BuildJSONList($songlist)   {
         4   => "Full Song"
     );
     $json = array();
-    //$songlist = SortSongs($songlist);
-    //print '{"name" : "'.$id.'", "eye" : "img/F2M/EYE/'.$id.'.PNG", "levellist" : []}'."\n";
+    //$songlist = SortSongs($songlist);	//	Uncomment if you want sorted here.
     foreach($songlist as $song) {
         // (Training Station => strpos($song["ID"],"EF") === false )
         // (Brain IQ => strpos($song["ID"],"BF") === false
         // (Mission => strpos($song["ID"],"E000") === false
         // (Random => strpos($song["ID"],"AFF") === false)
-        if($song["ActiveMode"] != "0"  && strpos($song["ID"],"AFF") === false && strpos($song["ID"],"BF") === false )  {
-            if(strpos($song["ID"],"BF") !== false || strpos($song["ID"],"E000") !== false || strpos($song["ID"],"EF") !== false)  {
+        if($song["ActiveMode"] != "0"  && strpos($song["ID"],"AFF") === false && strpos($song["ID"],"BF") === false )  {			//	Here I filter linked songs. Take a look on list to see the BF and AFF songs.
+            if(strpos($song["ID"],"BF") !== false || strpos($song["ID"],"E000") !== false || strpos($song["ID"],"EF") !== false)  {	//	So if its a mission or training station the SongID doesnt mean the real SongID. So we need to use the PreviewID to get the real SongID.
                 $eye = "img/F2M/EYE/{ID}.PNG";
                 $preview = "videos/pi/{ID}.jpg";
             }else{
@@ -181,13 +219,13 @@ function BuildJSONList($songlist)   {
                             "levellist" => array()
                           );
             foreach($song["charts"] as $chart)  {
-                if($chart["Level"]!="0" && $chart["StepchartType"] != "64")    {
+                if($chart["Level"]!="0" && $chart["StepchartType"] != "64")    {	//	Skip censored charts
                     $jssong["eye"] = str_ireplace("{ID}",$chart["SongIndexOffset"],$jssong["eye"]);
                     $jssong["previewimage"] = str_ireplace("{ID}",$chart["SongIndexOffset"],$jssong["previewimage"]);
                     $jssong["songid"] = $chart["SongIndexOffset"];
                     $type = "";
                     $ctype = (int)$chart["StepchartType"];
-                    $level = ($chart["Level"]=="50")?"??":(int)$chart["Level"];
+                    $level = ($chart["Level"]=="50")?"??":(int)$chart["Level"];	//	On F2, charts that is lvl 50 appear as ??
                     foreach($typemask as $mask => $ntype)   {
                         if($ctype & $mask)
                             $type .= $ntype[0];
