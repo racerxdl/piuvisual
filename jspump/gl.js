@@ -29,11 +29,21 @@
     may have different license including but not limited to JPAK, jQuery and others.
 
 */
+
+/*
+ * 	This is the WebGL related Stuff.
+ * 	Here we will define the basic drawing shaders and auxiliar functions to manage the WebGL stuff.
+ */
+
 PUMPER.GL = {};
-PUMPER.GL.ScreenWidth = 2;
-PUMPER.GL.ScreenHeight = 2;
-PUMPER.GL.ZDepth = 1000;
-PUMPER.GL.Shaders = {};
+PUMPER.GL.ScreenWidth = 2;		//	The ScreenWidth. Not the actually resolution, but the coordinates on GL Screen
+PUMPER.GL.ScreenHeight = 2;		//	The ScreenHeight. Not the actually resolution, but the coordinates on GL Screen
+PUMPER.GL.ZDepth = 1000;		//	The Z Depth Range
+PUMPER.GL.Shaders = {};			//	The Shaders holder
+
+/*
+ * 	The Simple Vertex Shader to draw 2D Stuff on WebGL Context
+ */
 PUMPER.GL.Shaders.SimpleVertexShader = "attribute vec3 aVertexPosition;         \
         attribute vec2 aTextureCoord;           \
         uniform vec3 uScale;                                                    \
@@ -45,8 +55,10 @@ PUMPER.GL.Shaders.SimpleVertexShader = "attribute vec3 aVertexPosition;         
             gl_Position = vec4(scaledPos, 1.0);    \
             vTextureCoord = aTextureCoord;\
         }\
-        ";
-        
+        ";	
+/*
+ * 	The Simple Fragment Shader to draw 2D Stuff on WebGL Context
+ */
 PUMPER.GL.Shaders.SimpleFragmentShader = "\
     precision mediump float;\
 \
@@ -59,6 +71,10 @@ PUMPER.GL.Shaders.SimpleFragmentShader = "\
         gl_FragColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t)) * vec4(1.0,1.0,1.0,uOpacity);\
     }\
 ";
+
+/*
+ * 	The Blend Vertex Shader used to blend the 2D Stuff over something that is on WebGL Context
+ */
 PUMPER.GL.Shaders.BlendVertexShader = "attribute vec3 aVertexPosition;         \
         attribute vec2 aTextureCoord;           \
         uniform vec3 uScale;                                                    \
@@ -71,6 +87,10 @@ PUMPER.GL.Shaders.BlendVertexShader = "attribute vec3 aVertexPosition;         \
             vTextureCoord = aTextureCoord;\
         }\
         ";
+
+/*
+ * 	The Blend Fragment Shader used to blend the 2D Stuff over something that is on WebGL Context
+ */
 PUMPER.GL.Shaders.BlendFragmentShader = "\
     precision mediump float;\
 \
@@ -89,15 +109,26 @@ PUMPER.GL.Shaders.BlendFragmentShader = "\
     }\
 ";
 
+/*
+ * 	This function checks if the value is power of 2
+ */
 PUMPER.GL.isPowerOfTwo = function (x) { return (x & (x - 1)) == 0; };
+
+/*
+ * 	This function gets the next highest power of two value for X
+ */
 PUMPER.GL.nextHighestPowerOfTwo = function (x) {
     --x;
     for (var i = 1; i < 32; i <<= 1) 
         x = x | x >> i;
     return x + 1;
 };  
+
+/*
+ * 	This function scales the Texture to a Power of two.
+ * 	See: http://www.khronos.org/webgl/wiki/WebGL_and_OpenGL_Differences
+ */
 PUMPER.GL.ToPowerOfTwo = function(image)    {
-    /*  From: http://www.khronos.org/webgl/wiki/WebGL_and_OpenGL_Differences    */
     if (!PUMPER.GL.isPowerOfTwo(image.width) || !PUMPER.GL.isPowerOfTwo(image.height)) {
         // Scale up the texture to the next highest power of two dimensions.
         var canvas = document.createElement("canvas");
@@ -109,6 +140,10 @@ PUMPER.GL.ToPowerOfTwo = function(image)    {
     }
     return image;
 };
+
+/*
+ * 	This function compiles a shader code using WebGL Context. 
+ */
 PUMPER.GL.compileShader = function (gl, shaderSource, shaderType) {
     // Create the shader object
     var shader = gl.createShader(shaderType);
@@ -127,8 +162,11 @@ PUMPER.GL.compileShader = function (gl, shaderSource, shaderType) {
     }
 
     return shader;
-}
+};
 
+/*
+ * 	This function creates a shader program given a compiled vertexShader and fragmentShader codes.
+ */
 PUMPER.GL.createProgram = function (gl, vertexShader, fragmentShader) {
     // create a program.
     var program = gl.createProgram();
@@ -150,9 +188,13 @@ PUMPER.GL.createProgram = function (gl, vertexShader, fragmentShader) {
     return program;
 };
 
-//  ScreenX, ScreenY, OnScreenWidth, OnScreenHeight, TextureX, TextureY, TextureU, OnTextureV, Z, TextureStepX, TextureStepY
-//  Texture Coordinates are relative with 0 and 1;
-
+/*
+ * 	This function generates a sprite coordinate given parameters.
+ * 	The parameters is (in order):
+ * 	ScreenX, ScreenY, OnScreenWidth, OnScreenHeight, TextureX, TextureY, TextureU, OnTextureV, Z, TextureStepX, TextureStepY
+ * 
+ * 	The texture coordinates are relative to 0 and 1
+ */
 PUMPER.GL.GenSprite = function(sx,sy,sw,sh,tx,ty,tu,tv,z,offidx)    {
     var RetData = [ [], [], [] ];   //  VertexData, TextureData, IndexData
     var SXS = 2 / PUMPER.GL.ScreenWidth,
@@ -183,6 +225,11 @@ PUMPER.GL.GenSprite = function(sx,sy,sw,sh,tx,ty,tu,tv,z,offidx)    {
     );
     return RetData;  
 };
+
+/*
+ * 	This creates a Canvas Context given an WebGL Texture.
+ * 	Used for getting texture images converted to Canvas images.
+ */
 PUMPER.GL.createCanvasFromTexture = function (gl, texture, width, height) {
     // Create a framebuffer backed by the texture
     var framebuffer = gl.createFramebuffer();
@@ -207,8 +254,12 @@ PUMPER.GL.createCanvasFromTexture = function (gl, texture, width, height) {
     context.putImageData(imageData, 0, 0);
 
     return canvas;
-}
+};
 
+/*
+ * 	The WebGL Renderer Class
+ * 	This is used to render WebGL Objects to the screen.
+ */
 PUMPER.GL.Renderer  =   function( parameters )  {
     var canvas  =   parameters.canvas,
         gl      =   parameters.gl;
@@ -224,26 +275,35 @@ PUMPER.GL.Renderer  =   function( parameters )  {
         if (!this.gl) 
             alert("Could not initialise WebGL.");
             
-        this.InitShaders();
+        this.InitShaders();								//	Initialize the Basic Shaders
         
-        this.gl.clearColor(0.1, 0.1, 0.1, 1.0);
+        this.gl.clearColor(0.1, 0.1, 0.1, 1.0);			//	Sets the clear color
 
-        this.VertexBuffer       = gl.createBuffer();
-        this.TextureCoordBuffer = gl.createBuffer();
-        this.VertexIndexBuffer  = gl.createBuffer();
-        this.TempTexture        = gl.createTexture();
+        this.VertexBuffer       = gl.createBuffer();	//	Initialize Vertex Buffers
+        this.TextureCoordBuffer = gl.createBuffer();	//	Initialize TextureCoordBuffer
+        this.VertexIndexBuffer  = gl.createBuffer();	//	Initialize VertexIndexBuffer
+        this.TempTexture        = gl.createTexture();	//	Initialize Temporary Texture
 
     }    
 };
+
+/*
+ * 	This function Initialize the Basic Shaders (Simple and Blend)
+ * 	It compiles the codes and creates the programs.
+ */
 PUMPER.GL.Renderer.prototype.InitShaders    =   function()  {
+	//	Compile the Shader Codes
     this.vertexShader           = PUMPER.GL.compileShader(this.gl, PUMPER.GL.Shaders.SimpleVertexShader, this.gl.VERTEX_SHADER);
     this.blendVertexShader      = PUMPER.GL.compileShader(this.gl, PUMPER.GL.Shaders.BlendVertexShader, this.gl.VERTEX_SHADER);
     this.fragmentShader         = PUMPER.GL.compileShader(this.gl, PUMPER.GL.Shaders.SimpleFragmentShader, this.gl.FRAGMENT_SHADER);
     this.blendFragmentShader    = PUMPER.GL.compileShader(this.gl, PUMPER.GL.Shaders.BlendFragmentShader, this.gl.FRAGMENT_SHADER);
+    
+    //	Create the programs
     this.Shaders.push(PUMPER.GL.createProgram(this.gl, this.vertexShader, this.fragmentShader));
     this.Shaders.push(PUMPER.GL.createProgram(this.gl, this.blendVertexShader, this.blendFragmentShader));
     
-    //  Simple Shader
+    //	Sets the Shader Attributes / Uniforms
+    //  -	Simple Shader
     this.gl.useProgram(this.Shaders[0]);
 
     this.Shaders[0].vertexPositionAttribute = this.gl.getAttribLocation(this.Shaders[0], "aVertexPosition");
@@ -257,7 +317,7 @@ PUMPER.GL.Renderer.prototype.InitShaders    =   function()  {
     this.Shaders[0].opacityUniform = this.gl.getUniformLocation(this.Shaders[0], "uOpacity");
     this.Shaders[0].scaleUniform = this.gl.getUniformLocation(this.Shaders[0], "uScale");
     
-    //  Blend Shader
+    //  -	Blend Shader
         
     this.gl.useProgram(this.Shaders[1]);
 
@@ -275,6 +335,10 @@ PUMPER.GL.Renderer.prototype.InitShaders    =   function()  {
     this.Shaders[1].scaleUniform = this.gl.getUniformLocation(this.Shaders[1], "uScale");
     
 };
+
+/*
+ * 	This is to clear the drawing screen.
+ */
 PUMPER.GL.Renderer.prototype.Clear  =   function()      {
     this.gl.viewport(0, 0, this.gl.viewportWidth, this.gl.viewportHeight);
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
@@ -282,6 +346,18 @@ PUMPER.GL.Renderer.prototype.Clear  =   function()      {
     this.gl.blendFunc( this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA );
     this.gl.enable( this.gl.BLEND );
 };
+
+/*
+ * 	This is for render the following data.
+ * 	The data parameter is an array of elements that has following structure:
+ * 		-	texture		=>	The object texture
+ * 		-	vertex		=>	The vertex array
+ * 		-	texcoord	=>	The texture coordinates array
+ * 		-	index		=>	The vertex indexes
+ * 		-	shdNum		=>	The shader program number to use
+ * 		-	scale		=>	The scale to render
+ * 		-	opacity		=>	The opacity of the object
+ */
 PUMPER.GL.Renderer.prototype.Render =   function(data)  {
     
     var i=0,len=data.length;
@@ -295,31 +371,45 @@ PUMPER.GL.Renderer.prototype.Render =   function(data)  {
             scale       =   d.scale,
             opacity     =   d.opacity,
             shader      =   this.Shaders[shdNum];
-           
+          
+        //	Enables the program - TODO: Make a cache of last shader number loaded, so we dont need to reload if its the same.
         this.gl.useProgram(shader);
-            
+        
+        //	Bind the Vertex Buffer
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.VertexBuffer);
         this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(vertex) , this.gl.STATIC_DRAW);
         this.gl.vertexAttribPointer(shader.vertexPositionAttribute, 3, this.gl.FLOAT, false, 0, 0);
 
+        //	Bind the Texture Coordinate Buffer
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.TextureCoordBuffer);
         this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(texcoord) , this.gl.STATIC_DRAW);
         this.gl.vertexAttribPointer(shader.textureCoordAttribute, 2, this.gl.FLOAT, false, 0, 0);
 
+        //	Bind the Texture
         this.gl.activeTexture(this.gl.TEXTURE0);
         this.gl.bindTexture(this.gl.TEXTURE_2D,  texture);
         this.gl.uniform1i(shader.samplerUniform, 0);
 
+        //	Bind the opacity and scale values
         this.gl.uniform1f(shader.opacityUniform, opacity);
         this.gl.uniform3f(shader.scaleUniform, scale.x, scale.y, scale.z);
+        
+        //	Bind the Vertex Index Buffer
         this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, this.VertexIndexBuffer);
         this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indexes), this.gl.STATIC_DRAW);
+        
+        //	Draw
         this.gl.drawElements(this.gl.TRIANGLES, indexes.length, this.gl.UNSIGNED_SHORT, 0);  
               
         ++i;
     };
 
 };
+
+/*
+ * 	The RenderObject Class
+ * 	This is a Renderable object class.
+ */
 PUMPER.GL.Renderer.prototype.RenderObject =   function(data)  {
     var shader = this.Shaders[0];
     if(data.opacity > 0 && data.visible)    {
@@ -372,37 +462,3 @@ PUMPER.GL.Renderer.prototype.RenderObject =   function(data)  {
         this.gl.drawElements(this.gl.TRIANGLES, data.VertexIndexArray.length, this.gl.UNSIGNED_SHORT, 0);
     }  
 };
-/*
-** NOT USED **
-PUMPER.GL.Texture = function(imageurl) {
-    PUMPER.GL.TextureCount+=1;
-    var _texture = this;
-    this.uuid               =   PUMPER.GL.Math.generateUUID();
-    this.image              =   new Image();
-    this.image.onload       =   function()  {
-        _texture.image      =   PUMPER.GL.ToPowerOfTwo(this);
-        _texture.NeedsUpdate = true;
-        _texture.ImageLoaded = true;    
-    };
-    this.image.src = imageurl;
-    this.NeedsUpdate = true;
-    this.Updated = false;
-};
-PUMPER.GL.Texture.prototype.UpdateTexture   =   function(gl)    {
-    if(this.ImageLoaded)    {
-        this.texture = gl.createTexture();
-        this.texture.image = this.image;
-        gl.bindTexture(gl.TEXTURE_2D, this.texture);
-        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, this.texture.image);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_NEAREST); 
-        gl.generateMipmap(gl.TEXTURE_2D);
-        gl.bindTexture(gl.TEXTURE_2D, null); 
-        this.NeedsUpdate = false;
-        this.Updated = true;       
-    }
-};
-PUMPER.GL.Texture.prototype.getTexture = function() {
-    return this.texture;
-};*/
