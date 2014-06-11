@@ -57,6 +57,10 @@ PUMPER.GL.LayerZ = {
     "4" : 0         //  Effect Layer
 }; 
 */
+
+/*
+ * 	The GL Drawer Class. This class works in the same way that Drawer class works.
+ */
 PUMPER.GL.Drawer = PUMPER.GL.Drawer || function ( parameters )  {
     this.canvas             =   parameters.canvas;
     this.skin               =   parameters.skin;
@@ -80,6 +84,9 @@ PUMPER.GL.Drawer = PUMPER.GL.Drawer || function ( parameters )  {
         
 };
 
+/*
+ * 	This clears all notes objects, items and so.
+ */
 PUMPER.GL.Drawer.prototype.Clear        =   function()  {
     this.Notes[0].length = 0;
     this.Notes[1].length = 0;
@@ -91,29 +98,45 @@ PUMPER.GL.Drawer.prototype.Clear        =   function()  {
     this.ItemsIdx = 0;
 };
 
+/*
+ * 	This adds a object to corresponding layer.
+ * 	If layer parameter is undefined, it will add to default layer (2)
+ */
 PUMPER.GL.Drawer.prototype.AddObj      =   function(obj, layer) {
     layer = layer !== undefined ? layer : "2"; 
     //PUMPER.debug("PUMPER::Drawer::Adding AnimObj "+obj.id+" in layer "+layer);
     obj.Drawer = this;
     this.LayerObjects[layer].push(obj);
 };
+
+/*
+ * 	Removes an object from a given layer.
+ */
+PUMPER.GL.Drawer.prototype.RemoveObj   =   function(objname,layer)  {  this.SceneLayers[layer].RemoveObject(objname); };
+
+/*
+ * 	This does the note drawing.
+ * 	The note layer is the default (2), all notes will be rendered on Layer 2
+ * 	This will basicly iterate over the noteblock adding the notes on the layer
+ */
 PUMPER.GL.Drawer.prototype.DrawNotes   =   function() {
     var i           =   0, 
         len         =   this.NoteBlock.length,
-        holdcount   =   0
-        k           =   0
+        k           =   0,
         klen        =   0;  
     while(i<len)    {
         var row = this.NoteBlock[i],
             n = 0, nlen = row.notes.length;
             while(n < nlen) {
                 var note = row.notes[n];
-                if(note.type == PUMPER.NoteHoldHead || note.type == PUMPER.NoteHoldHeadFake)    { 
-                    if(this.HoldBuffer[n].length == 0)     {
+                if(note.type == PUMPER.NoteHoldHead || note.type == PUMPER.NoteHoldHeadFake)    { 					//	First we will process the holds. The holds have start, body and end.
+																													// 	So basicly we need to cache the start and see where it will end, so we can know how much we need to draw.
+                    if(this.HoldBuffer[n].length == 0)     {														//	We first search if there is any hold already on buffer. If not, we add the current one to buffer. 
+																													//	This is necessary for broken/bad made charts that doesnt have start/end for longs.
                         this.HoldBuffer[n].push({"beatfrom":row.rowbeat, "beatend" : note.beatend, "pos" : n, "opacity" : note.opacity, "y" : row.y, "seed" : note.seed, "attr" : note.attr});
-                    }else{
-                        var found = false;
-                        klen=this.HoldBuffer[n].length;
+                    }else{																							//	If it doesnt, it means we may have an delta to draw the hold.
+                        var found = false;																			//	Lets see if we can find a hold in the same column we already found.
+                        klen=this.HoldBuffer[n].length;																//	If we find, we just update the Y
                         k=0;
                         while(k<klen)   {
                             if(this.HoldBuffer[n][k].beatfrom == row.rowbeat)   {
@@ -123,19 +146,17 @@ PUMPER.GL.Drawer.prototype.DrawNotes   =   function() {
                             }
                             ++k;
                         }
-                        if(!found)
+                        if(!found)																					//	If not, we need to add it to the buffer
                             this.HoldBuffer[n].push({"beatfrom":row.rowbeat, "beatend" : note.beatend, "pos" : n, "opacity" : note.opacity, "y" : row.y, "seed" : note.seed, "attr" : note.attr});
                     }
                 }else if(note.type == PUMPER.NoteHoldBody)   {
-                    //if(row.y >= 0 && row.y <= PUMPER.OffsetY-3)
-                    if(PUMPER.Globals.NoteData.BeatInCutZone(row.rowbeat, row))
-                        PUMPER.Globals.EffectBlock[n].Start(PUMPER.Globals.NoteData.CurrentBeat);
+                    if(PUMPER.Globals.NoteData.BeatInCutZone(row.rowbeat, row))										//	If its an hold body, we just need to check if its on CutZone (a.k.a. receiver). If so, we trigger the Receiver Effect for that note
+                        PUMPER.Globals.EffectBlock[n].Start(PUMPER.Globals.NoteData.CurrentBeat);					//	In UCS and NX20 we draw the hold regardless if the body is defined or not. So we don't need to force it draw.
                 }
-                if(note.type == PUMPER.NoteEffect)
-                    this.ProcessEffect(note.opacity, n, row.y, note.rotation, note.seed, note.attr)
-                else if(note.type != PUMPER.NoteHoldBody && note.type != PUMPER.NoteNull)  {    
+                if(note.type == PUMPER.NoteEffect)																	//	If its an Effect (NX20 stuff), we trigger process the Effect
+                    this.ProcessEffect(note.opacity, n, row.y, note.rotation, note.seed, note.attr);
+                else if(note.type != PUMPER.NoteHoldBody && note.type != PUMPER.NoteNull)  {    					//	If its not an Hold and not a Null Note, we just draw it.
                     if(PUMPER.Globals.NoteData.BeatInCutZone(row.rowbeat, row) && note.type != PUMPER.NoteItemFake && note.type != PUMPER.NoteFake)   {
-                    //if(row.y >= 0 && row.y <= PUMPER.OffsetY-3 && note.type != PUMPER.NoteItemFake && note.type != PUMPER.NoteFake)   {
                             PUMPER.Globals.EffectBlock[n].Start(PUMPER.Globals.NoteData.CurrentBeat);
                     }else{
                         this.DrawNote(note.type, note.opacity, n, row.y, note.rotation, note.seed, note.attr);
@@ -146,7 +167,11 @@ PUMPER.GL.Drawer.prototype.DrawNotes   =   function() {
         ++i;
     }
     i = 0;
-    len = PUMPER.Globals.Double ? 10 : 5;
+    len = PUMPER.Globals.Double ? 10 : 5;		//	Just how many notes we will iterate.
+    /*
+     * 	This loop will iterate over the Hold Buffer and draw the holds.
+     * 	Basicly will draw the start, body and end.
+     */
     while(i<len)    {
         var HoldK   =   this.HoldBuffer[i],
             lenK    =   HoldK.length,
@@ -178,6 +203,10 @@ PUMPER.GL.Drawer.prototype.DrawNotes   =   function() {
         ++i;
     }
 };
+
+/*
+ * 	This function draws a Hold body given the paremeters.
+ */
 PUMPER.GL.Drawer.prototype.DrawHoldBody    =   function(nopacity, notepos, y, seed, attr, height)   { 
     if(nopacity != 0 && height-PUMPER.ArrowSize/2 > 0 && height > 0 && y > -200)  {
         height = (y<0)?height+y:height;
@@ -191,7 +220,12 @@ PUMPER.GL.Drawer.prototype.DrawHoldBody    =   function(nopacity, notepos, y, se
         this.Notes[2] = data[2].concat(this.Notes[2]);//.concat(data[2]);
         this.NotesIdx+= data[0].length/3;
     }
-}
+};
+
+/*
+ * 	This is for processing the effects. Usually this will be only for NX20 stuff.
+ * 	I didnt implemented yet the Effects on WebGL. TODO: Make work like non WebGL
+ */
 PUMPER.GL.Drawer.prototype.ProcessEffect   =   function(nopacity, notepos, y, noterotation, seed, attr, time)   {
     /*
     if(attr == 0 && seed == 22 && y <= PUMPER.OffsetY/2 )   {    //  Bomb Effect
@@ -211,6 +245,10 @@ PUMPER.GL.Drawer.prototype.ProcessEffect   =   function(nopacity, notepos, y, no
     
     }*/  
 };
+
+/*
+ * 	This function draws a note with given parameters. 
+ */
 PUMPER.GL.Drawer.prototype.DrawNote    =   function(ntype, nopacity, notepos, y, noterotation, seed, attr)  {
     if(nopacity != 0 && ntype != PUMPER.NoteNull && (y > PUMPER.OffsetY-2 || ntype == PUMPER.NoteFake || ntype == PUMPER.NoteItemFake) )  {
         var img = this.skin.GLGetNoteImage(ntype, notepos%5, seed, attr);
@@ -224,6 +262,11 @@ PUMPER.GL.Drawer.prototype.DrawNote    =   function(ntype, nopacity, notepos, y,
     }
 };
 
+/*
+ * 	This updates the layers (and sentinel if enabled).
+ * 	In the layer updates usually it updates the Animations with the timeDelta since last update.
+ * 	It also clears the note layer that needs to be update every frame.
+ */
 PUMPER.GL.Drawer.prototype.Update      =   function() {
     this.Clear();
     if(PUMPER.Globals.Sentinel.OK())    {
@@ -245,8 +288,11 @@ PUMPER.GL.Drawer.prototype.Update      =   function() {
         }
     }
 };
-    
-PUMPER.GL.Drawer.prototype.RemoveObj   =   function(objname,layer)  {  this.SceneLayers[layer].RemoveObject(objname); };
+
+/*
+ * 	This function gets all the layers and draw on the main canvas given the layer order.
+ * 	It will use layer.blendtype parameter to blend the layer over the canvas.
+ */
 PUMPER.GL.Drawer.prototype.DrawLayers  =   function()  {
     if(!PUMPER.Globals.AllLoaded)  {
         this.DrawLoading();
@@ -294,6 +340,11 @@ PUMPER.GL.Drawer.prototype.DrawLayers  =   function()  {
 
     }
 };
+
+/*
+ * 	This function draws the Loading screen.
+ * 	TODO
+ */
 PUMPER.GL.Drawer.prototype.DrawLoading =   function()   {
 /*
     this.ctx.font = "bold 56px sans-serif";

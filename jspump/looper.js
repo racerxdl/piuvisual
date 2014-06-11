@@ -30,12 +30,21 @@
 
 */
 /************************* Looper **************************/
+/*
+ * This is the Looper Class.
+ * It does the main loop of the game
+ */
 PUMPER.Looper = PUMPER.Looper || function ( parameters )  {
     this.Drawer     = parameters.drawer;
     this.NoteData   = parameters.notedata;
     this.Skin       = parameters.skin; 
 };
 
+/*
+ * 	Main Loop Function. Draws the loading if the game is loading,
+ * 	if not, runs the game Update, Updates the Sentinel, updates the current block
+ * 	and updates the views.
+ */
 PUMPER.Looper.prototype.loop = function()  {
     PUMPER.Globals.Sentinel.Update();
     if(this.Drawer !== undefined)   { 

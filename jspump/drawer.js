@@ -98,7 +98,6 @@ PUMPER.Drawer.prototype.DrawNotes   =   function() {
     var i           =   0, 
         len         =   this.NoteBlock.length,
         ctx         =   this.SceneLayers[2].GetContext(),
-        //holdcount   =   0,
         k           =   0,
         klen        =   0;  
     while(i<len)    {
