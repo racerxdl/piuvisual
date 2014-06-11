@@ -220,7 +220,7 @@ PUMPER.GameLoader.prototype.Load    =   function()  {
                     url : _this.loadargs.sscfile,
                     dataType: "text",
                         success : function (data) {
-                            _this._SSC = PUMPER.SSCParser(data,this.loadargs["chartnumber"]);
+                            _this._SSC = PUMPER.SSCParser(data,_this.loadargs["chartnumber"]);
                             var gameCanvas = document.getElementById(_this.canvasname);
                             PUMPER.Globals.PumpGame = new PUMPER.Game({"notedata" : _this._SSC, "musicfile" : _this.soundfile, "canvas": gameCanvas, "stats" : _this.gamestats});
                             PUMPER.Globals.PumpGame.AddBackground(_this.imagefile);
@@ -228,7 +228,7 @@ PUMPER.GameLoader.prototype.Load    =   function()  {
                         }
                 });
             }else
-                PUMPER.debug("No UCS file specifed!");               
+                PUMPER.debug("No SSC file specifed!");               
             break;
         case PUMPER.TypeSM:
         case PUMPER.TypeSMA:

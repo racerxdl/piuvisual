@@ -67,8 +67,7 @@
 			document.body.appendChild( GameStats.domElement );
 			var GameParameters = PUMPER.parseHashes();
 			PUMPER.ScrollSpeed = (GameParameters.scrollSpeed!==undefined)?parseInt(GameParameters.scrollSpeed):4;
-			console.log(GameParameters);
-            PumpGame = new PUMPER.GameLoader({"loadtype" : PUMPER.TypeSSC, "loadargs" : {"sscname":"Mecha-Tribe Assault","sscfile":(GameParameters.SSC!==undefined)?"ssc/"+GameParameters.UCS+".ssc":"ssc/Mecha-Tribe Assault.ssc","level" :16}, "canvasname" : "gamescreen", "gamestats" : GameStats});
+            PumpGame = new PUMPER.GameLoader({"loadtype" : PUMPER.TypeSSC, "loadargs" : {"sscname":"Mecha-Tribe Assault","sscfile":(GameParameters.SSC!==undefined)?"ssc/"+GameParameters.UCS+".ssc":"ssc/Mecha-Tribe Assault.ssc","chartnumber" :6}, "canvasname" : "gamescreen", "gamestats" : GameStats});
             PumpGame.Load();
 		}
 	</script>
