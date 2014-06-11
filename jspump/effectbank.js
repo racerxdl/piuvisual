@@ -29,6 +29,11 @@
     may have different license including but not limited to JPAK, jQuery and others.
 
 */
+
+/*
+ * 	This is the effect bank class.
+ * 	This class will hold the global effects to be called by the system.
+ */
 PUMPER.EffectBank = function(parameters)  {
     this.drawer = parameters.drawer;
     this.gl     = parameters.gl;
@@ -37,8 +42,15 @@ PUMPER.EffectBank = function(parameters)  {
     
 };
 
+/*
+ * 	Just an holder for the Effect types.
+ */
 PUMPER.Effects = {};
 
+/*
+ * 	Flash effect. This effect will flash the screen (white)
+ * 	It is like here: https://www.youtube.com/watch?v=OPdWZdWySZo
+ */
 PUMPER.Effects.FlashEffect = function(drawer, gl)    {
     this.drawer = drawer;
     this.gl = gl;
@@ -96,6 +108,9 @@ PUMPER.Effects.FlashEffect = function(drawer, gl)    {
     PUMPER.Globals.ObjectsLoaded += 1;
     PUMPER.Globals.CheckLoaded();
 };
+/*
+ * 	This function starts the effect
+ */
 PUMPER.Effects.FlashEffect.prototype.Start = function ( CurrentBeat)   {
     if((CurrentBeat*100)>>0 > this.CurrentBeat100)  {
         this.CurrentBeat100 = (CurrentBeat*100)>>0;
