@@ -34,10 +34,10 @@ PUMPER.SSCTools.CleanLines = function(data)       {
         for(var n in data)
             if(data.hasOwnProperty(n))
                 data[n] = data[n].trim();
-        return data.filter(function(n){ return n != '' });
+        return data.filter(function(n){ return n != ''; });
     }else
         return data.trim();
-}
+};
 
 PUMPER.SSCTools.LineObject = function(data)  {
     if(data instanceof Array)   {
@@ -45,10 +45,10 @@ PUMPER.SSCTools.LineObject = function(data)  {
             if(data.hasOwnProperty(n))
                 data[n] = PUMPER.SSCTools.LineObject(data[n]);
         }
-        return data.filter(function(n){ return n != '' });
+        return data.filter(function(n){ return n != ''; });
     }else
         return PUMPER.SSCTools.CleanLines(data.split("\n"));
-}
+};
 
 PUMPER.SSCTools.ParseSSCLines = function(data)    {
     var reg = /\#([\s\S]*?)\;/g;
@@ -102,11 +102,15 @@ PUMPER.SSCTools.ParseSSCLines = function(data)    {
         }
     }
     return songdata;
-}
+};
 
-PUMPER.SSCParser = PUMPER.SSCParser || function ( SSCText ) {
+PUMPER.SSCParser = PUMPER.SSCParser || function ( SSCText, chartn ) {
     var songdata = PUMPER.SSCTools.ParseSSCLines(SSCText);
-    var curchart = songdata.charts[6];
+    var curchart;
+    if(chartn == undefined)
+    	curchart = songdata.charts[6];
+    else
+    	curchart = songdata.charts[chartn];
     console.log(songdata);
     
     var SSCData     =   new PUMPER.StepData({});

@@ -29,15 +29,31 @@
     may have different license including but not limited to JPAK, jQuery and others.
 
 */
-PUMPER.TypeInvalid  =   0;
-PUMPER.TypeUCS      =   1;
-PUMPER.TypeNX       =   2;
-PUMPER.TypeSM       =   3;
-PUMPER.TypeSMA      =   4;
-PUMPER.TypeSSC      =   5;
-PUMPER.TypeJPAKNX   =   6;
-PUMPER.TypeTextUCS  =   7;
 
+
+
+/*
+ * 	This is the Step Types used on the Loader.
+ * 	Not all have been implemented.
+ */
+PUMPER.TypeInvalid  =   0;		//	The default one, for undefined type
+PUMPER.TypeUCS      =   1;		//	UCS File Loader
+PUMPER.TypeNX       =   2;		//	NX20/10 File Loader
+PUMPER.TypeSM       =   3;		//	SM File Loader
+PUMPER.TypeSMA      =   4;		//	SMA File Loader
+PUMPER.TypeSSC      =   5;		//	SSC File Loader
+PUMPER.TypeJPAKNX   =   6;		//	JPAK'd NX20 file (piuvisual struct) file loader
+PUMPER.TypeTextUCS  =   7;		//	Text Type UCS (not a file loader, just receive the Text as parameter)
+
+/*
+ * 	The Loader Constructor.
+ * 	It uses a parameters object with following items:
+ * 		-	loadtype			=>	The type of file that we are loading (refer to PUMPER.TypeXXXXXX)
+ * 			loadargs			=>	The load arguments, specific for each file type
+ * 			gamestats			=>	The stats.js instance for updating the framerate.
+ * 			canvasname			=>	The canvas name to use on drawings
+ * 			HighSpeedAnimation	=>	If true, it will render as 240FPS setInterval not using the requestAnimationFrame. Default is false
+ */
 PUMPER.GameLoader = PUMPER.GameLoader || function(parameters)   {
 
     this.loadtype       =   parameters["loadtype"]         || PUMPER.TypeInvalid;
@@ -51,9 +67,19 @@ PUMPER.GameLoader = PUMPER.GameLoader || function(parameters)   {
            
 };
 
+/*
+ *	This function starts the loading and parsing of the file.
+ *	The behaviour is specific for each type of files. 
+ */
 PUMPER.GameLoader.prototype.Load    =   function()  {
     var _this = this;
     switch(this.loadtype)   {
+    	/**
+    	 * 	This is the Text UCS Loader. It will receive a loadarg called "ucsdata" that will be used in the parser.
+    	 * 	It uses the same parser as TypeUCS, but TypeUCS loads it from an URL.
+    	 * 	It will load background image from folder ucs/img/{SONGID}.jpg and song from ucs/mp3/{SONGID}.mp3 (if mp3 is supported) or ucs/ogg/{SONGID}.ogg (if ogg is supported)
+    	 * 	If MP3 is supported, MP3 Will be loaded.
+    	 */
         case PUMPER.TypeTextUCS:
             if(this.loadargs["ucsdata"] !== undefined && this.loadargs.songid !== undefined) {
                 this.soundfile = (this.compcodec.audio.indexOf("mp3") > -1)?"ucs/mp3/"+this.loadargs["songid"]+".mp3":"ucs/ogg/"+this.loadargs["songid"]+".ogg";
@@ -67,6 +93,9 @@ PUMPER.GameLoader.prototype.Load    =   function()  {
             }else
                 PUMPER.debug("No UCS data specifed!");               
             break;
+        /**
+         * 	Same as over, but uses a "ucsfile" parameter and loads that url.
+         */
         case PUMPER.TypeUCS:
             if(this.loadargs["ucsfile"] !== undefined && this.loadargs["songid"] !== undefined) {
                 this.soundfile = (this.compcodec.audio.indexOf("mp3") > -1)?"ucs/mp3/"+this.loadargs.songid+".mp3":"ucs/ogg/"+this.loadargs.songid+".ogg";
@@ -85,6 +114,12 @@ PUMPER.GameLoader.prototype.Load    =   function()  {
             }else
                 PUMPER.debug("No UCS file specifed!");        
             break;
+        /**
+         * 	This is the NX20/NX10 Loader. Current the NX Parser will not parse NX10, only NX20
+    	 * 	It will load background image from folder ucs/img/{SONGID}.jpg and song from ucs/mp3/{SONGID}.mp3 (if mp3 is supported) or ucs/ogg/{SONGID}.ogg (if ogg is supported)
+    	 * 	If MP3 is supported, MP3 Will be loaded.
+    	 * 	It will load NX file from a loadarg "nxfile"
+         */
         case PUMPER.TypeNX:
             if(this.loadargs.nxfile !== undefined && this.loadargs.songid !== undefined) {
                 this.soundfile = (this.compcodec.audio.indexOf("mp3") > -1)?"ucs/mp3/"+this.loadargs.songid+".mp3":"ucs/ogg/"+this.loadargs.songid+".ogg";
@@ -106,6 +141,26 @@ PUMPER.GameLoader.prototype.Load    =   function()  {
             }else
                 PUMPER.debug("No UCS file specifed!");        
             break;
+        /**
+         * 	This will load a NX file inside an JPAK.
+         * 	It will load a JPAK file with url specified on "jpak" loadarg, it will use also the level and mode parameter to pick the chart.
+         * 	The structure of the JPAK file needs to follow this:
+         * 	-	MUSIC.MP3					//	The MP3 song file
+         * 	-	MUSIC.OGG					//	The OGG song file
+         * 	-	PREVIEW.MP3					//	The preview song MP3, not needed for this loader.
+         * 	-	PREVIEW.OGG					//	The preview song OGG, not needed for this loader.
+         * 	-	PREVIEW.MP4					//	The preview video mp4, not needed for this loader.
+         * 	-	TITLE.JPG					//	The background image
+         * 	-	CHARTS						//	The charts folder
+         * 	//	This is the charts folder content. You don't need to have all these folders created.
+         * 	//	This is just for reference how you should place your NX charts inside the folders
+         * 	-	CHARTS/SINGLE				//	The single charts folder
+         * 	-	CHARTS/SINGLE/{LEVEL}.NX	//	The single chart with level {LEVEL}
+         * 	-	CHARTS/DOUBLE				//	The double charts folder
+         * 	-	CHARTS/SINGLEPERFORMANCE	//	The single performance charts folder
+         * 	-	CHARTS/DOUBLEPERFORMANCE	//	The double performance charts folder
+         * 	-	CHARTS/MISSION				//	The mission folders
+         */
         case PUMPER.TypeJPAKNX:
             if(this.loadargs.jpak !== undefined && this.loadargs.level !== undefined && this.loadargs.mode !== undefined)   {
                 var gameCanvas = document.getElementById(_this.canvasname);
@@ -152,8 +207,12 @@ PUMPER.GameLoader.prototype.Load    =   function()  {
                 this.jpakloader.Load();            
             }
             break;
+        /**
+         * 	This is the ALPHA SSC Loader.
+         * 	It will load an SSC file from the URL in loadargs "sscfile" and the chart number by loadargs "chartnumber"
+         */
         case PUMPER.TypeSSC:
-            if(this.loadargs["sscfile"] !== undefined && this.loadargs["level"] !== undefined) {
+            if(this.loadargs["sscfile"] !== undefined && this.loadargs["chartnumber"] !== undefined) {
                 //this.soundfile = (this.compcodec.audio.indexOf("mp3") > -1)?"ucs/mp3/"+this.loadargs.songid+".mp3":"ucs/ogg/"+this.loadargs.songid+".ogg";
                 this.soundfile = "ssc/ogg/"+this.loadargs.sscname+".ogg";
                 this.imagefile = "ssc/img/"+this.loadargs.sscname+".png";
@@ -161,8 +220,7 @@ PUMPER.GameLoader.prototype.Load    =   function()  {
                     url : _this.loadargs.sscfile,
                     dataType: "text",
                         success : function (data) {
-                            console.log("LOADED");
-                            _this._SSC = PUMPER.SSCParser(data);
+                            _this._SSC = PUMPER.SSCParser(data,this.loadargs["chartnumber"]);
                             var gameCanvas = document.getElementById(_this.canvasname);
                             PUMPER.Globals.PumpGame = new PUMPER.Game({"notedata" : _this._SSC, "musicfile" : _this.soundfile, "canvas": gameCanvas, "stats" : _this.gamestats});
                             PUMPER.Globals.PumpGame.AddBackground(_this.imagefile);
@@ -182,10 +240,18 @@ PUMPER.GameLoader.prototype.Load    =   function()  {
     }
 };
 
+/*
+ * 	This is the Animate Start function. It will set the global variable HighSpeedAnimation and Trigger 
+ * 	the global GameLoaderAnimate function.
+ */
 PUMPER.GameLoader.prototype.Animate =   function()  {
     PUMPER.Globals.HighSpeedAnimation = this.HighSpeedAnimation;
     PUMPER.GameLoaderAnimate();
 };
+
+/*
+ * 	This will draw the loading screen
+ */
 PUMPER.GameLoader.prototype.DrawLoading = function()    {
     this.ctx.font = "bold 56px sans-serif";
     this.ctx.textAlign = 'center';
@@ -209,6 +275,12 @@ PUMPER.GameLoader.prototype.DrawLoading = function()    {
         this.Renderer.RenderObject(this.loadobject);  
     }
 };
+
+/*
+ * 	The global function to animate.
+ * 	if PUMPER.Globals.HighSpeedAnimation is true,	it will run the HighSpeedRequest function
+ * 	otherwise it will call requestAnimFrame.
+ */
 PUMPER.GameLoaderAnimate = function()   {
     if( PUMPER.Globals.HighSpeedAnimation)
         PUMPER.HighSpeedRequest(PUMPER.GameLoaderAnimate);
